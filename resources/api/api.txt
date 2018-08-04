@@ -1,0 +1,28 @@
+https://sydemotest.ledu.com/api/sound/getlist
+获取接口
+参数：
+user:他的openid
+返回值
+{"error":1,"msg":"","data":{}}
+error=1 成功
+data：[
+"file_path":文件地址
+]
+
+https://sydemotest.ledu.com/api/sound/store
+上传接口
+formData里传user:他的openid
+返回值(json)
+{"error":1,"msg":"","data":{}}
+error=1 成功
+
+https://sydemotest.ledu.com/api/user/login
+登录接口
+参数：
+code:code
+返回值
+{"error":1,"msg":"","data":{}}
+error=1 成功
+data：[
+"openid":openid
+]

@@ -1,0 +1,5 @@
+.svn
+*.log
+storage/framework/cache
+.idea
+storage/logs/

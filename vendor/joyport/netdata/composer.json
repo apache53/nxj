@@ -1,0 +1,23 @@
+{
+    "name": "joyport/netdata",
+    "description": "socket connect to C++ servers library",
+    "keywords": ["socket"],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Garming Lau",
+            "email": "liujiaming@joyport.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "NetData\\": "src/",
+            "NetData\\Lib\\": "src/Lib"
+        }
+    }
+}
