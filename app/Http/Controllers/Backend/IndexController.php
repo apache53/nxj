@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Model\Vcode;
 use App\Library\AppLogger;
 use App\Library\Utils;
 use Cache;
@@ -16,8 +17,22 @@ class IndexController extends Controller
      * /***********************************************/
     public function login(Request $request)
     {
-        echo 'login';
-        //header('location:client://loadgame|http://s20103.dl.game.ledu.com?client=1&server_name=双线103服');exit;
+        return view('backend.index.login',
+            [
+            ]
+        );
+    }
+
+    public function dologin(Request $request)
+    {
+        $this->outputJson();
+    }
+
+    public function vcode(Request $request)
+    {
+        $vcodeModel = new Vcode();
+        $vcodeModel->create_code();
+        //exit;
     }
 
 }

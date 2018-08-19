@@ -18,7 +18,7 @@ $app = new Illuminate\Foundation\Application(
  * 环境变量配置
  */
 $path = realpath(__DIR__.'/../');
-$evnmark = file_get_contents($path."/envmark.txt");
+$evnmark = @file_get_contents($path."/envmark.txt");
 $evnmark = trim($evnmark);
 $envend = ".env.development";
 switch ($evnmark){

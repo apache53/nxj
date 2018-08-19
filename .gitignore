@@ -1,5 +1,6 @@
 .svn
 *.log
-storage/framework/cache
 .idea
-storage/logs/
+storage
+env
+envmark.txt
