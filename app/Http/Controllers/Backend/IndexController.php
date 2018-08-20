@@ -25,7 +25,21 @@ class IndexController extends Controller
 
     public function dologin(Request $request)
     {
-        $this->outputJson();
+        $password = $this->safeInput($request->input('password', ''), array("filter_sql" => true, "filter_html" => true));
+        $username = $this->safeInput($request->input('username', ''), array("filter_sql" => true, "filter_html" => true));
+        $vcode = $this->safeInput($request->input('vcode', ''), array("filter_sql" => true, "filter_html" => true));
+
+        if(empty($password) || empty($username) || empty($vcode)){
+            $this->outputJson(11,'请填写完整',[]);
+        }
+
+        $vcodeModel = new Vcode();
+        $code_res = $vcodeModel->check_code($vcode);
+        if(!$code_res){
+            $this->outputJson(12,'验证码错误',[]);
+        }
+
+        $this->outputJson(1,'登录成功',[]);
     }
 
     public function vcode(Request $request)

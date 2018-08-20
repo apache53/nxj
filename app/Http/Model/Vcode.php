@@ -31,8 +31,8 @@ class Vcode
 
         Cache::put($image_verifycode_key, $verify_code,6);
 
-        //setcookie("image_verifycode_key", $image_verifycode_key, time()+60 * 5, "/");
-        Cookie::make('image_verifycode_key', $image_verifycode_key, 5);
+        setcookie("image_verifycode_key", $image_verifycode_key, time()+60 * 5, "/");
+        //Cookie::make('image_verifycode_key', $image_verifycode_key, 5);
 
         //Header("Content-type: image/PNG");
 
@@ -41,7 +41,8 @@ class Vcode
 
     public  function check_code($code){
 
-        $cookie_key = Cookie::get('image_verifycode_key');
+        $cookie_key = isset($_COOKIE["image_verifycode_key"])?$_COOKIE["image_verifycode_key"]:"";//Cookie::get('image_verifycode_key');
+
         if(empty($cookie_key)){
             return false;
         }

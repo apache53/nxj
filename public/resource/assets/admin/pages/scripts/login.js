@@ -67,17 +67,22 @@ var Login = function() {
         });
 
         function login_submit(){
+            var data = $('.login-form').serialize();
             $.ajax({
                 url:'/backend/index/dologin',
                 type:'POST', //GET
                 async:false,    //或false,是否异步
-                data:'',
+                data:data,
                 dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
                 success:function(data){
-                    console.log(data);
+                    alert(data.msg);
+                    if(data.error != 1){
+                        alertErrorTip('错误',data.msg);
+                        return false;
+                    }
+                    alert(data.msg);
+                    alertErrorTip('提示',data.msg);
                     return false;
-
-
                 },
                 error:function(xhr,textStatus){
 
