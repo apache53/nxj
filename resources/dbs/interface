@@ -1,0 +1,102 @@
+# 接口文档
+- 用户名登录接口
+    - 地址：/api/user/login
+    - 请求方式: post
+    - 参数：
+        - user_name:用户名
+        - password:密码
+        - login_type:登录类型，1管理员，2船长
+        - vcode:验证码
+    - 返回值: 
+        ``` 
+        {
+              "error": 1, //1成功，其他都为失败
+              "msg": "success", //文字提示
+              "res": 
+              {
+                "user_name":"jordon",
+                "real_name":"乔丹",
+                "user_mobile":"19999999999",
+                "role_id":"1",//1管理员，2船长
+                "login_token":"登录态，需要登录态的接口都需要带这个参数，一定时间失效",
+              }
+        }
+        ```
+
+- 退出登录
+    - 地址：/api/user/logout
+        - 请求方式: post
+        - 参数：
+            - login_token:登录态
+        - 返回值: 
+            ``` 
+            {
+                  "error": 1, //1成功，其他都为失败
+                  "msg": "success", //文字提示
+                  "res": 
+                  {
+                  }
+            }
+            ```
+
+
+- 获取账号信息接口
+    - 地址：/api/user/info
+    - 请求方式: post
+    - 参数：
+        - login_token:登录态
+    - 返回值: 
+        ``` 
+        {
+              "error": 1, //1成功，其他都为失败
+              "msg": "success", //文字提示
+              "res": 
+              {
+                "user_name":"jordon",
+                "real_name":"乔丹",
+                "user_mobile":"19999999999",
+                "role_id":"1",
+              }
+        }
+        ```
+
+- 获取所有景点信息
+    - 地址：/api/scenic/list
+        - 请求方式: post
+        - 参数：
+            - login_token:登录态
+        - 返回值: 
+            ``` 
+            {
+                  "error": 1, //1成功，其他都为失败
+                  "msg": "success", //文字提示
+                  "res": 
+                  {
+                    
+                  }
+            }
+            ```
+
+- 获取系统配置信息（公告等）
+
+
+- 获取安全语音
+
+
+- 获取所有游船位置
+
+
+- 添加（编辑）景点
+
+
+- 获取所有用户列表
+
+
+- 添加（编辑）用户
+
+
+
+
+
+
+

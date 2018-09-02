@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Model\AdminUsers;
 use App\Http\Model\Vcode;
 use App\Library\AppLogger;
 use App\Library\Utils;
@@ -19,6 +20,7 @@ class IndexController extends Controller
     {
         return view('backend.index.login',
             [
+                "resource_url" => "http://nxj_resource.nxj.cn"
             ]
         );
     }
@@ -39,7 +41,12 @@ class IndexController extends Controller
             $this->outputJson(12,'验证码错误',[]);
         }
 
-        $this->outputJson(1,'登录成功',[]);
+        $user = AdminUsers::checkUser($username,$password);
+        if($user["error"] == 1){
+            $this->outputJson(1,'登录成功',$user["res"]);
+        }
+
+        $this->outputJson($user["error"],$user["msg"],[]);
     }
 
     public function vcode(Request $request)
