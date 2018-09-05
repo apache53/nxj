@@ -36,6 +36,8 @@ CREATE TABLE `admin_users` (
   PRIMARY KEY (`admin_user_id`),
   INDEX `key_user_name` (`user_name`)
 ) ENGINE=innodb AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+INSERT INTO `nxj`.`admin_users` (`admin_user_id`, `user_name`, `real_name`, `user_email`, `user_email_active`, `user_mobile`, `user_mobile_active`, `user_password`, `user_salt`, `role_id`, `is_frozen`, `create_time`, `last_login_time`, `last_login_ip`) VALUES ('1', 'xumin', '大兄弟', '', '0', '13344444444', '0', 'addfac31cfcd33f8aa86c5ea6808e011', '222222', '1', '0', '0', '1536155672', '127.0.0.1');
+
 
 # 用户登录态表
 CREATE TABLE `admin_users_session` (
@@ -44,6 +46,7 @@ CREATE TABLE `admin_users_session` (
   `login_token` varchar(100) NOT NULL COMMENT '登录token',
   `login_ip` varchar(50) DEFAULT '' COMMENT '登录ip',
   `create_time` int(11) DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(11) DEFAULT '0' COMMENT '更新时间',
   `expire_time` int(11) DEFAULT '0' COMMENT '到期时间',
   PRIMARY KEY (`session_id`),
   INDEX `key_user` (`admin_user_id`),
@@ -82,4 +85,39 @@ CREATE TABLE `scenic` (
   `remark` varchar(255) DEFAULT '0' COMMENT '备注',
   PRIMARY KEY (`id`),
   INDEX `index_pre_id` (`pre_id`)
+) ENGINE=innodb AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+# 船长游船表
+CREATE TABLE `user_boat` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增id',
+  `drive_day` varchar(50) NOT NULL COMMENT '行驶日期',
+  `boat_name` varchar(50) NOT NULL COMMENT '游船名称',
+  `admin_user_id` int(11) NOT NULL COMMENT '用户id',
+  `latitude` decimal(10,6) DEFAULT '' COMMENT '当前纬度，范围为-90~90，负数表示南纬',
+  `longitude` decimal(10,6) DEFAULT '' COMMENT '当前经度，范围为-180~180，负数表示西经',
+  `is_out` tinyint(1) DEFAULT 0 COMMENT '是否越界，0否，1是',
+  `scenic_id` int(11) DEFAULT '0' COMMENT '当前景点',
+  `start_latitude` decimal(10,6) DEFAULT '' COMMENT '开始纬度，范围为-90~90，负数表示南纬',
+  `start_longitude` decimal(10,6) DEFAULT '' COMMENT '开始经度，范围为-180~180，负数表示西经',
+  `distance` decimal(10,2) DEFAULT '' COMMENT '行驶距离',
+  `create_time` int(11) DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(11) DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  INDEX `index_user` (`admin_user_id`)
+) ENGINE=innodb AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+# 船长游船行驶日志表
+CREATE TABLE `user_boat_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增id',
+  `drive_day` varchar(50) NOT NULL COMMENT '行驶日期',
+  `boat_name` varchar(50) NOT NULL COMMENT '游船名称',
+  `admin_user_id` int(11) NOT NULL COMMENT '用户id',
+  `latitude` decimal(10,6) DEFAULT '' COMMENT '当前纬度，范围为-90~90，负数表示南纬',
+  `longitude` decimal(10,6) DEFAULT '' COMMENT '当前经度，范围为-180~180，负数表示西经',
+  `is_out` tinyint(1) DEFAULT 0 COMMENT '是否越界，0否，1是',
+  `scenic_id` int(11) DEFAULT '0' COMMENT '当前景点',
+  `distance` decimal(10,2) DEFAULT '' COMMENT '行驶距离',
+  `create_time` int(11) DEFAULT '0' COMMENT '创建时间',
+  PRIMARY KEY (`id`),
+  INDEX `index_user` (`admin_user_id`)
 ) ENGINE=innodb AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

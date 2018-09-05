@@ -1,4 +1,5 @@
 # 接口文档
+- 接口地址：
 - 用户名登录接口
     - 地址：/api/user/login
     - 请求方式: post
@@ -6,7 +7,7 @@
         - user_name:用户名
         - password:密码
         - login_type:登录类型，1管理员，2船长
-        - vcode:验证码
+        //- vcode:验证码
     - 返回值: 
         ``` 
         {
@@ -21,6 +22,7 @@
                 "login_token":"登录态，需要登录态的接口都需要带这个参数，一定时间失效",
               }
         }
+        https://sydemotest.ledu.com/api/user/login?username=xumin&password=123qwe
         ```
 
 - 退出登录
@@ -65,6 +67,7 @@
         - 请求方式: post
         - 参数：
             - login_token:登录态
+            - scenic_id:景点id，为0时不作为筛选条件
         - 返回值: 
             ``` 
             {
@@ -72,7 +75,17 @@
                   "msg": "success", //文字提示
                   "res": 
                   {
-                    
+                    {
+                        "id":"1",
+                        "scenic_name":"xxxxx",
+                        "scenic_img":"http://www.xxx.com/sss",
+                        "latitude":"11.11111",
+                        "longitude":"22.22222",
+                        "voice_path":"http://www.xxx.com/sss",
+                        "radius":10,
+                        "pre_id":2
+                    },
+                    {...}
                   }
             }
             ```
@@ -83,19 +96,82 @@
 - 获取安全语音
 
 
+- 上报游船位置
+
+
 - 获取所有游船位置
 
 
 - 添加（编辑）景点
-
+  - 地址：/api/scenic/add
+    - 请求方式: post
+    - 参数：
+        - login_token:登录态,
+        - scenic_id:景点id（新增为0，编辑为实际景点id）
+        - scenic_name:景点名称
+        - scenic_img:景点图片文件
+        - scenic_voice:景点语音文件
+        - latitude:景点经度
+        - longitude:景点纬度
+        - radius:半径
+        - pre_id:上一个景点id
+    - 返回值: 
+        ``` 
+        {
+              "error": 1, //1成功，其他都为失败
+              "msg": "success", //文字提示
+              "res": 
+              {
+                "scenic_id":"1",
+                "scenic_img":"http://xxxxxxx",//图片地址
+                "scenic_voice":"http://xxxxxxx",//语音地址
+              }
+        }
+        ```
 
 - 获取所有用户列表
-
+  - 地址：/api/user/list
+        - 请求方式: post
+        - 参数：
+            - login_token:登录态,
+            - role_id:角色id，1管理员，2船长，为0时不作为筛选条件
+            - user_name:用户名，为空字符串时不作为筛选条件
+            - real_name:用户姓名，为空字符串时不作为筛选条件
+        - 返回值: 
+            ``` 
+            {
+                  "error": 1, //1成功，其他都为失败
+                  "msg": "success", //文字提示
+                  "res": 
+                  {
+                    {
+                        "user_id":"1",
+                        "user_name":"xxxxx",
+                        "real_name":"张三",
+                        "user_mobile":"13333333333",
+                    },
+                    {...}
+                  }
+            }
+            ```
 
 - 添加（编辑）用户
-
-
-
+  - 地址：/api/user/add
+    - 请求方式: post
+    - 参数：
+        - login_token:登录态,
+        - user_id:用户id（新增为0，编辑为实际用户id）
+        - user_name:用户名
+        - real_name:真实姓名
+        - user_mobile:用户手机号
+        - role_id:角色id
+    - 返回值: 
+        ``` 
+        {
+              "error": 1, //1成功，其他都为失败
+              "msg": "success", //文字提示
+              "res": {}                
+        ```
 
 
 

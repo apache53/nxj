@@ -22,6 +22,9 @@ Route::group(['namespace'=>'Api','middleware'=>'checkYunSign'],function(){
 
         Route::get('sound/getlist','SoundController@getlist');
         Route::any('sound/store','SoundController@store');
+
+        Route::any('user/login','UserController@login');
+        Route::any('user/info','UserController@info');
     });
 });
 
