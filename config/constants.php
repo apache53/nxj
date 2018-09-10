@@ -10,4 +10,6 @@ return [
     'login_token_time' => 7*86400,//登录token有效期
 
     'log_login' => 'login',
+    'log_add_scenic' => 'add_scenic',
+    'log_edit_scenic' => 'edit_scenic',
 ];

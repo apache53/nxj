@@ -54,21 +54,30 @@ class UserController extends Controller
      * /***********************************************/
     public function info(Request $request)
     {
-        $login_token = $this->safeInput($request->input('login_token', ''), array("filter_sql" => true, "filter_html" => true));
+        $user = $request->get('user');//中间件产生的参数
+        Utils::outputJson(1,'成功',$user);
+    }
+
+    /************************************************
+     * +   用户退出登录接口
+     * /***********************************************/
+    public function logout(Request $request)
+    {
+        $login_token = Utils::safeInput($request->input('login_token', ''), array("filter_sql" => true, "filter_html" => true));
 
         if(empty($login_token)){
-            $this->outputJson(11,'参数为空',[]);
+            Utils::outputJson(11,'参数为空',[]);
         }
 
         $request_info = [
             "ip" => $request->getClientIp()
         ];
-        $user = AdminUsers::checkToken($login_token,$request_info);
+        $user = AdminUsers::logout($login_token,$request_info);
         if($user["error"] == 1){
-            $this->outputJson(1,'成功',$user["res"]);
+            Utils::outputJson(1,'成功',$user["res"]);
         }
 
-        $this->outputJson($user["error"],$user["msg"],[]);
+        Utils::outputJson($user["error"],$user["msg"],[]);
     }
 
 }

@@ -13,3 +13,7 @@ DB_PORT=3306
 DB_DATABASE=aiyou_test
 DB_USERNAME=aiyou_test
 DB_PASSWORD=quqidb_Joyport
+
+HOST_SELF=https://sydemotest.ledu.com
+HOST_IMG=https://sydemotest.ledu.com
+HOST_VOICE=https://sydemotest.ledu.com

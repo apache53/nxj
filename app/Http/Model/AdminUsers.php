@@ -58,11 +58,13 @@ class AdminUsers extends Model
                 ];
                 UserLog::add($log);
 
+                $default_img = env('HOST_IMG')."/file/image/head_default.png";
                 $user_data = [
                     "user_name"=>$user->user_name,
                     "real_name"=>$user->real_name,
                     "user_mobile"=>$user->user_mobile,
                     "role_id"=>$user->role_id,
+                    "head_img"=>empty($user->head_img)?$default_img:$user->head_img,
                     "login_token" => $token
                 ];
                 return ["error"=>1,"msg"=>"成功","res"=>$user_data];
@@ -137,11 +139,14 @@ class AdminUsers extends Model
         ];
         $user = self::getUser($where);
         if(!is_null($user)){
+            $default_img = env('HOST_IMG')."/file/image/head_default.png";
             $user_data = [
+                "admin_user_id" => $admin_user_id,
                 "user_name"=>$user->user_name,
                 "real_name"=>$user->real_name,
                 "user_mobile"=>$user->user_mobile,
                 "role_id"=>$user->role_id,
+                "head_img"=>empty($user->head_img)?$default_img:$user->head_img,
             ];
             return ["error"=>1,"msg"=>"成功","res"=>$user_data];
         }
@@ -151,5 +156,20 @@ class AdminUsers extends Model
             "msg" => "用户不存在",
             "res" => []
         ];
+    }
+
+    public static function logout($login_token,$request_info=[]){
+        //检查登录态
+        $token_param = [
+            "login_token" => $login_token,
+            "ip" => $request_info["ip"],
+        ];
+        $token_res = AdminUsersSession::checkToken($token_param);
+        if($token_res["error"]!=1){
+            return $token_res;
+        }
+
+        $res = AdminUsersSession::expired($token_res["res"]["admin_user_id"],$login_token);
+        return $res;
     }
 }

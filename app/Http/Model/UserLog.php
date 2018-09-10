@@ -56,8 +56,8 @@ class UserLog extends Model
                 $table->string('user_name')->default('')->comment('用户名');
                 $table->string('log_type')->default('')->comment('操作类型');
                 $table->string('log_ip')->default('')->comment('操作ip');
-                $table->string('before_value')->default('')->comment('操作前值');
-                $table->string('after_value')->default('')->comment('操作后值');
+                $table->text('before_value')->comment('操作前值');
+                $table->text('after_value')->comment('操作后值');
                 $table->integer('create_time')->default(0)->comment('操作时间');
                 $table->string('remark')->default('')->comment('备注');
                 $table->index(['admin_user_id']);

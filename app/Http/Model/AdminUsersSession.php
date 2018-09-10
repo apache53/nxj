@@ -111,4 +111,23 @@ class AdminUsersSession extends Model
         ];
 
     }
+
+    public static function expired($admin_user_id,$token){
+        $now = time();
+        $db = DB::connection(self::$connection_name);
+        $update = [
+            "update_time" => $now,
+            "expire_time" => 0
+        ];
+        $table = self::$table_name;
+        $db->table($table)
+            ->where('admin_user_id', $admin_user_id)
+            ->where('login_token', $token)->update($update);
+
+        return [
+            "error" => 1,
+            "msg" => "成功",
+            "res" => []
+        ];
+    }
 }

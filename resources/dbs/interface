@@ -128,7 +128,10 @@
               }
         }
         ```
-
+        https://sydemotest.ledu.com/api/scenic/add?login_token=98ec33362d993206b04e5619d064bbb0&scenic_name=楠溪江&latitude=100&longitude=90&radius=5&pre_id=1
+        https://sydemotest.ledu.com/api/scenic/add?login_token=98ec33362d993206b04e5619d064bbb0&scenic_id=1&scenic_name=%E6%A5%A0%E6%BA%AA%E6%B1%9F&latitude=80&longitude=90&radius=10&pre_id=2
+        
+        
 - 获取所有用户列表
   - 地址：/api/user/list
         - 请求方式: post
@@ -149,6 +152,7 @@
                         "user_name":"xxxxx",
                         "real_name":"张三",
                         "user_mobile":"13333333333",
+                        "head_img":"http://sssss",
                     },
                     {...}
                   }
@@ -161,10 +165,12 @@
     - 参数：
         - login_token:登录态,
         - user_id:用户id（新增为0，编辑为实际用户id）
-        - user_name:用户名
-        - real_name:真实姓名
-        - user_mobile:用户手机号
-        - role_id:角色id
+            - user_name:用户名（编辑时此字段不可编辑）
+            - real_name:真实姓名
+            - user_mobile:用户手机号
+            - role_id:角色id
+            - head_img:头像（选填）
+            - password:密码（新增时必填，编辑时不填则表示不修改密码）
     - 返回值: 
         ``` 
         {
