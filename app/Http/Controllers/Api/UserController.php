@@ -24,12 +24,12 @@ class UserController extends Controller
      * /***********************************************/
     public function login(Request $request)
     {
-        $password = $this->safeInput($request->input('password', ''), array("filter_sql" => true, "filter_html" => true));
-        $username = $this->safeInput($request->input('username', ''), array("filter_sql" => true, "filter_html" => true));
-        $vcode = $this->safeInput($request->input('vcode', ''), array("filter_sql" => true, "filter_html" => true));
+        $password = Utils::safeInput($request->input('password', ''), array("filter_sql" => true, "filter_html" => true));
+        $username = Utils::safeInput($request->input('username', ''), array("filter_sql" => true, "filter_html" => true));
+        $vcode = Utils::safeInput($request->input('vcode', ''), array("filter_sql" => true, "filter_html" => true));
 
         if(empty($password) || empty($username)){
-            $this->outputJson(11,'信息请填写完整',[]);
+            Utils::outputJson(11,'信息请填写完整',[]);
         }
 
         /*$vcodeModel = new Vcode();
@@ -43,10 +43,10 @@ class UserController extends Controller
         ];
         $user = AdminUsers::checkUser($username,$password,$request_info);
         if($user["error"] == 1){
-            $this->outputJson(1,'登录成功',$user["res"]);
+            Utils::outputJson(1,'登录成功',$user["res"]);
         }
 
-        $this->outputJson($user["error"],$user["msg"],[]);
+        Utils::outputJson($user["error"],$user["msg"],[]);
     }
 
     /************************************************
