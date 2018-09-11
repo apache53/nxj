@@ -70,6 +70,7 @@ class CheckYunSign
             "api/user/info",
             "api/user/logout",
             "api/scenic/list",
+            "api/file/upload"
         ];
     }
 
@@ -78,6 +79,8 @@ class CheckYunSign
         return [
             1=>[
                 "api/scenic/add",
+                "api/user/list",
+                "api/user/add"
             ],
             2=>[
 

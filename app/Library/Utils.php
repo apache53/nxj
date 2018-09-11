@@ -352,4 +352,46 @@ class Utils
         return $url;
     }
 
+    public static function isMobile($mobile){
+
+        $pattern = "/^1[23456789]\d{9}$/";
+        if(preg_match($pattern, $mobile)){
+            return array("error"=>1,"msg"=>"ok","res"=>[]);
+        }
+
+        return array("error"=>31,"msg"=>"手机号格式有误","res"=>[]);
+    }
+
+    //验证用户名6-20
+    public static function isUsername($username){
+        $length = strlen($username);
+        if($length>20 || $length<4){
+            return array("error"=>31,"msg"=>"用户名需字母开头，6-20位字母、数字组成，不含特殊符号","res"=>[]);
+        }
+        $pattern = "/^[a-zA-Z0-9]+$/";
+        if(!preg_match($pattern, $username)){
+            return array("error"=>32,"msg"=>"用户名需字母开头，6-20位字母、数字组成，不含特殊符号","res"=>[]);
+        }
+        $pattern = "/^[0-9][a-zA-Z0-9]{3,19}$/";
+        if(preg_match($pattern, $username)){
+            return array("error"=>33,"msg"=>"用户名需字母开头，6-20位字母、数字组成，不含特殊符号","res"=>[]);
+        }
+
+        return array("error"=>1,"msg"=>"ok","res"=>[]);
+    }
+
+    //验证密码，不含空格
+    public static function isPassword($password){
+        $length = strlen($password);
+        if($length>20 || $length<6){
+            return array("error"=>31,"msg"=>"密码长度，6-20字符","res"=>[]);
+        }
+        $pattern = "/^[^\s]+$/";
+        if(!preg_match($pattern, $password)){
+            return array("error"=>32,"msg"=>"密码长度，6-20字符","res"=>[]);
+        }
+
+        return array("error"=>1,"msg"=>"ok","res"=>[]);
+    }
+
 }

@@ -29,28 +29,12 @@ class ScenicController extends Controller
         $longitude = Utils::safeInput($request->input('longitude', ''), array("filter_num" => true));
         $radius = Utils::safeInput($request->input('radius', ''), array("filter_num" => true));
         $pre_id = Utils::safeInput($request->input('pre_id', ''), array("filter_num" => true));
+        $scenic_img = $request->input('scenic_img', '');
+        $scenic_voice = $request->input('scenic_voice', '');
 
         //echo $scenic_name."#".$latitude."#".$longitude."#".$radius;
         if(empty($scenic_name) ||  empty($latitude) || empty($longitude) || empty($radius)){
             Utils::outputJson(11,'信息请填写完整',[]);
-        }
-
-        //景点图片
-        $scenic_img = null;
-        if($request->hasFile('scenic_img')){
-            $scenic_img = $request->file('scenic_img');
-            if(!$scenic_img->isValid()){
-                $scenic_img = null;
-            }
-        }
-
-        //景点声音
-        $scenic_voice = null;
-        if($request->hasFile('scenic_voice')){
-            $scenic_voice = $request->file('scenic_voice');
-            if(!$scenic_voice->isValid()){
-                $scenic_voice = null;
-            }
         }
 
         $user = $request->get('user');//中间件产生的参数

@@ -66,22 +66,6 @@ class Scenic extends Model
             }
         }
 
-        $scenic_img = "";
-        if(!is_null($scenic["scenic_img"])){
-            $image_res = File::storeFile($scenic["scenic_img"],"image",$scenic["scenic_name"]);
-            if($image_res["error"]==1){
-                $scenic_img = $image_res["res"]["file_path"];
-            }
-        }
-
-        $scenic_voice = "";
-        if(!is_null($scenic["scenic_voice"])){
-            $voice_res = File::storeFile($scenic["scenic_voice"],"voice",$scenic["scenic_name"]);
-            if($voice_res["error"]==1){
-                $scenic_voice = $voice_res["res"]["file_path"];
-            }
-        }
-
         $now = time();
         $scenic_data = [
             "scenic_name" => $scenic["scenic_name"],
@@ -92,13 +76,15 @@ class Scenic extends Model
             "update_time" => $now,
         ];
 
-        if($scenic_img){
-            $scenic_data["scenic_img"] = $scenic_img;
+        $scenic_img = $scenic["scenic_img"];
+        if($scenic["scenic_img"]){
+            $scenic_data["scenic_img"] = $scenic["scenic_img"];
         }else{
             $scenic_img = $scenic_res->scenic_img;
         }
-        if($scenic_voice){
-            $scenic_data["voice_path"] = $scenic_voice;
+        $scenic_voice = $scenic["scenic_voice"];
+        if($scenic["scenic_voice"]){
+            $scenic_data["voice_path"] = $scenic["scenic_voice"];
         }else{
             $scenic_voice = $scenic_res->voice_path;
         }
@@ -155,21 +141,8 @@ class Scenic extends Model
             ];
         }
 
-        $scenic_img = "";
-        if(!is_null($scenic["scenic_img"])){
-            $image_res = File::storeFile($scenic["scenic_img"],"imgage",$scenic["scenic_name"]);
-            if($image_res["error"]==1){
-                $scenic_img = $image_res["res"]["file_path"];
-            }
-        }
-
-        $scenic_voice = "";
-        if(!is_null($scenic["scenic_img"])){
-            $voice_res = File::storeFile($scenic["scenic_img"],"voice",$scenic["scenic_name"]);
-            if($voice_res["error"]==1){
-                $scenic_voice = $voice_res["res"]["file_path"];
-            }
-        }
+        $scenic_img = $scenic["scenic_img"];
+        $scenic_voice = $scenic["scenic_voice"];
 
         $now = time();
         $scenic_data = [

@@ -80,4 +80,85 @@ class UserController extends Controller
         Utils::outputJson($user["error"],$user["msg"],[]);
     }
 
+    /************************************************
+     * +   用户列表接口
+     * /***********************************************/
+    public function lists(Request $request)
+    {
+        $user = $request->get('user');
+        $user_name = Utils::safeInput($request->input('user_name', ''), array("filter_sql" => true, "filter_html" => true));
+        $real_name = Utils::safeInput($request->input('real_name', ''), array("filter_sql" => true, "filter_html" => true));
+        $role_id = Utils::safeInput($request->input('role_id', ''), array("filter_num" => true));
+
+        $where = [
+            "user_name" => $user_name,
+            "real_name" => $real_name,
+            "role_id" => $role_id,
+        ];
+        $res = AdminUsers::getList($where);
+        $data = [];
+        if(!empty($res)){
+            foreach($res as $k=>$v){
+                if(isset($v->admin_user_id)){
+                    $head_img = !empty($v->head_img)?$v->head_img:"/image/head_default.png";
+                    $data[$k] = [
+                        "user_id" => $v->admin_user_id,
+                        "user_name" => $v->user_name,
+                        "real_name" => $v->real_name,
+                        "user_mobile" => $v->user_mobile,
+                        "role_id" => $v->role_id,
+                        "head_img" => Utils::getImageUrl($head_img)
+                    ];
+                }
+
+            }
+        }
+
+        Utils::outputJson(1,"ok",$data);
+    }
+
+    /************************************************
+     * +   用户添加编辑接口
+     * /***********************************************/
+    public function add(Request $request)
+    {
+        $user_id = Utils::safeInput($request->input('user_id', ''), array("filter_num" => true));
+        $user_name = Utils::safeInput($request->input('user_name', ''), array("filter_sql" => true, "filter_html" => true));
+        $real_name = Utils::safeInput($request->input('real_name', ''), array("filter_sql" => true, "filter_html" => true));
+        $user_mobile = Utils::safeInput($request->input('user_mobile', ''), array("filter_sql" => true, "filter_html" => true));
+        $role_id = Utils::safeInput($request->input('role_id', ''), array("filter_num" => true));
+        $head_img = $request->input('head_img', '');
+        $password = $request->input('password', '');
+
+        if(empty($real_name) || empty($role_id) || !in_array($role_id,[1,2])){
+            Utils::outputJson(11,'信息请填写完整',[]);
+        }
+
+        $user = $request->get('user');//中间件产生的参数
+
+        $request_info = [
+            "ip" => $request->getClientIp()
+        ];
+
+        $user_data = [
+            "user_id" => $user_id,
+            "user_name" => $user_name,
+            "real_name" => $real_name,
+            "user_mobile" => $user_mobile,
+            "role_id" => $role_id,
+            "head_img" => $head_img,
+            "password" => $password,
+        ];
+
+        if($user_id>0){
+            //编辑逻辑
+            $res = AdminUsers::editUser($user_data,$user,$request_info);
+        }else{
+            //新增逻辑
+            $res = AdminUsers::addUser($user_data,$user,$request_info);
+        }
+
+        Utils::outputJson($res["error"],$res["msg"],$res["res"]);
+    }
+
 }

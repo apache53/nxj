@@ -26,9 +26,13 @@ Route::group(['namespace'=>'Api','middleware'=>'checkYunSign'],function(){
         Route::any('user/login','UserController@login');
         Route::any('user/info','UserController@info');
         Route::any('user/logout','UserController@logout');
+        Route::any('user/list','UserController@lists');
+        Route::any('user/add','UserController@add');
 
         Route::any('scenic/add','ScenicController@add');
         Route::any('scenic/list','ScenicController@lists');
+
+        Route::any('file/upload','FileController@upload');
     });
 });
 
