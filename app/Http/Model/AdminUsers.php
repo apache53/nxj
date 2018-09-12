@@ -245,7 +245,7 @@ class AdminUsers extends Model
             "role_id" => $user_data["role_id"],
             "is_frozen" => 0,
             "create_time" => $now,
-            "head_img" => $user_data["head_img"],
+            "head_img" => str_replace(env('HOST_SELF'),"",$user_data["head_img"]),
         ];
 
         $db = DB::connection(self::$connection_name);
@@ -317,7 +317,7 @@ class AdminUsers extends Model
         }
 
         if(isset($user_data["head_img"]) && $user_data["head_img"]!=""){
-            $data["head_img"] = $user_data["head_img"];
+            $data["head_img"] = str_replace(env('HOST_SELF'),"",$user_data["head_img"]);
         }
 
         $db = DB::connection(self::$connection_name);

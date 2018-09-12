@@ -78,13 +78,13 @@ class Scenic extends Model
 
         $scenic_img = $scenic["scenic_img"];
         if($scenic["scenic_img"]){
-            $scenic_data["scenic_img"] = $scenic["scenic_img"];
+            $scenic_data["scenic_img"] = str_replace(env('HOST_SELF'),"",$scenic["scenic_img"]);
         }else{
             $scenic_img = $scenic_res->scenic_img;
         }
         $scenic_voice = $scenic["scenic_voice"];
         if($scenic["scenic_voice"]){
-            $scenic_data["voice_path"] = $scenic["scenic_voice"];
+            $scenic_data["voice_path"] = str_replace(env('HOST_SELF'),"",$scenic["scenic_voice"]);
         }else{
             $scenic_voice = $scenic_res->voice_path;
         }
@@ -141,8 +141,8 @@ class Scenic extends Model
             ];
         }
 
-        $scenic_img = $scenic["scenic_img"];
-        $scenic_voice = $scenic["scenic_voice"];
+        $scenic_img = str_replace(env('HOST_SELF'),"",$scenic["scenic_img"]);
+        $scenic_voice = str_replace(env('HOST_SELF'),"",$scenic["scenic_voice"]);
 
         $now = time();
         $scenic_data = [
