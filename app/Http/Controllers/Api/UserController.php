@@ -100,7 +100,7 @@ class UserController extends Controller
         if(!empty($res)){
             foreach($res as $k=>$v){
                 if(isset($v->admin_user_id)){
-                    $head_img = !empty($v->head_img)?$v->head_img:"/image/head_default.png";
+                    $head_img = !empty($v->head_img)?$v->head_img:"//file/image/head_default.png";
                     $data[$k] = [
                         "user_id" => $v->admin_user_id,
                         "user_name" => $v->user_name,

@@ -31,7 +31,7 @@ class File
         // 上传文件
         $filename = date('YmdHis') . '-' . md5($originalName.$id)  . rand(100,999) . '.' . $ext;
         // 使用我们新建的uploads本地存储空间（目录）
-        $file_dir = "/".$type."/";
+        $file_dir = "/file/".$type."/";
         $file_path = $file_dir.$filename;
         file_put_contents(public_path().$file_dir.$filename, file_get_contents($realPath));
 

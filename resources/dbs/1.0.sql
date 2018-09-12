@@ -29,7 +29,7 @@ CREATE TABLE `admin_users` (
   `user_password` varchar(100) DEFAULT '' COMMENT '用户密码，hash',
   `user_salt` varchar(50) DEFAULT '' COMMENT '用户密码盐',
   `role_id` int(11) DEFAULT '0' COMMENT '角色id，1管理员，2船长',
-  `head_img ` varchar(255) DEFAULT '' COMMENT '头像',
+  `head_img` varchar(255) DEFAULT '' COMMENT '头像',
   `is_frozen` tinyint(2) DEFAULT 0 COMMENT '冻结状态，1是',
   `create_time` int(11) DEFAULT '0' COMMENT '创建时间',
   `last_login_time` int(11) DEFAULT '0' COMMENT '最后登录时间',
