@@ -214,7 +214,24 @@ class Scenic extends Model
         $res = $db->get();
         $data = [];
         if(!is_null($res)){
-            $data = $res->toArray();
+            $arr = $res->toArray();
+            if(!empty($arr)) {
+                foreach ($arr as $k => $v) {
+                    if (isset($v->id)) {
+                        $data[$v->id] = [
+                            "id" => $v->id,
+                            "scenic_name" => $v->scenic_name,
+                            "scenic_img" => Utils::getImageUrl($v->scenic_img),
+                            "latitude" => $v->latitude,
+                            "longitude" => $v->longitude,
+                            "voice_path" => Utils::getVoiceUrl($v->voice_path),
+                            "radius" => $v->radius,
+                            "pre_id" => $v->pre_id,
+                            "next_id" => 0,
+                        ];
+                    }
+                }
+            }
         }
 
         return $data;

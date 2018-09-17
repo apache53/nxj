@@ -76,22 +76,14 @@ class ScenicController extends Controller
             "scenic_id" => $scenic_id
         ];
         $res = Scenic::getList($where);
-        $data = [];
+        $data = $res;
         if(!empty($res)){
             foreach($res as $k=>$v){
-                if(isset($v->id)){
-                    $data[$k] = [
-                        "id" => $v->id,
-                        "scenic_name" => $v->scenic_name,
-                        "scenic_img" => Utils::getImageUrl($v->scenic_img),
-                        "latitude" => $v->latitude,
-                        "longitude" => $v->longitude,
-                        "voice_path" => Utils::getVoiceUrl($v->voice_path),
-                        "radius" => $v->radius,
-                        "pre_id" => $v->pre_id,
-                    ];
+                if(isset($v["id"])){
+                    if($v["pre_id"]>0){
+                        $data[$v["pre_id"]]["next_id"] = $v["id"];
+                    }
                 }
-
             }
         }
 

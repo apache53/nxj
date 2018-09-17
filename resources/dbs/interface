@@ -4,7 +4,7 @@
     - 地址：/api/user/login
     - 请求方式: post
     - 参数：
-        - user_name:用户名
+        - username:用户名
         - password:密码
         - login_type:登录类型，1管理员，2船长
         //- vcode:验证码
@@ -19,10 +19,10 @@
                 "real_name":"乔丹",
                 "user_mobile":"19999999999",
                 "role_id":"1",//1管理员，2船长
+                "head_img":"http://sssss",
                 "login_token":"登录态，需要登录态的接口都需要带这个参数，一定时间失效",
               }
         }
-        https://sydemotest.ledu.com/api/user/login?username=xumin&password=123qwe
         ```
 
 - 退出登录
@@ -58,6 +58,7 @@
                 "real_name":"乔丹",
                 "user_mobile":"19999999999",
                 "role_id":"1",
+                "head_img":"http://sssss",
               }
         }
         ```
@@ -83,7 +84,8 @@
                         "longitude":"22.22222",
                         "voice_path":"http://www.xxx.com/sss",
                         "radius":10,
-                        "pre_id":2
+                        "pre_id":2,
+                        "next_id":4
                     },
                     {...}
                   }
@@ -109,8 +111,8 @@
         - login_token:登录态,
         - scenic_id:景点id（新增为0，编辑为实际景点id）
         - scenic_name:景点名称
-        - scenic_img:景点图片文件
-        - scenic_voice:景点语音文件
+        - scenic_img:景点图片文件（编辑时不上传则不更新该字段）
+        - scenic_voice:景点语音文件（编辑时不上传则不更新该字段）
         - latitude:景点经度
         - longitude:景点纬度
         - radius:半径
@@ -128,10 +130,7 @@
               }
         }
         ```
-        https://sydemotest.ledu.com/api/scenic/add?login_token=98ec33362d993206b04e5619d064bbb0&scenic_name=楠溪江&latitude=100&longitude=90&radius=5&pre_id=1
-        https://sydemotest.ledu.com/api/scenic/add?login_token=98ec33362d993206b04e5619d064bbb0&scenic_id=1&scenic_name=%E6%A5%A0%E6%BA%AA%E6%B1%9F&latitude=80&longitude=90&radius=10&pre_id=2
-        
-        
+
 - 获取所有用户列表
   - 地址：/api/user/list
         - 请求方式: post
@@ -153,6 +152,7 @@
                         "real_name":"张三",
                         "user_mobile":"13333333333",
                         "head_img":"http://sssss",
+                        "role_id":"1",
                     },
                     {...}
                   }
@@ -165,12 +165,12 @@
     - 参数：
         - login_token:登录态,
         - user_id:用户id（新增为0，编辑为实际用户id）
-            - user_name:用户名（编辑时此字段不可编辑）
-            - real_name:真实姓名
-            - user_mobile:用户手机号
-            - role_id:角色id
-            - head_img:头像（选填）
-            - password:密码（新增时必填，编辑时不填则表示不修改密码）
+        - user_name:用户名（编辑时此字段不可编辑,可不传）
+        - real_name:真实姓名
+        - user_mobile:用户手机号
+        - role_id:角色id
+        - head_img:头像（选填）
+        - password:密码（新增时必填，编辑时不填则表示不修改密码）
     - 返回值: 
         ``` 
         {
@@ -178,6 +178,25 @@
               "msg": "success", //文字提示
               "res": {}                
         ```
+        
+- 上传文件接口
+  - 地址：/api/file/upload
+    - 请求方式: post
+    - 参数：
+        - formData:{login_token:登录态,type:image/voice}//type=image为图片，=voice为语音
+        - name:'file',
+    - 返回值: 
+        ``` 
+        {
+              "error": 1, //1成功，其他都为失败
+              "msg": "success", //文字提示
+              "res": {
+                "path":"/xxxxx",//文件路径，传入其他接口时请用这个字段
+                "url":"https://xxxxxx"//文件访问地址
+              }                
+        ```
+
+
 
 
 
