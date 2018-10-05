@@ -92,32 +92,35 @@ CREATE TABLE `scenic` (
 CREATE TABLE `user_boat` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增id',
   `drive_day` varchar(50) NOT NULL COMMENT '行驶日期',
-  `boat_name` varchar(50) NOT NULL COMMENT '游船名称',
+  `boat_name` varchar(50) default '' COMMENT '游船名称',
   `admin_user_id` int(11) NOT NULL COMMENT '用户id',
-  `latitude` decimal(10,6) DEFAULT '' COMMENT '当前纬度，范围为-90~90，负数表示南纬',
-  `longitude` decimal(10,6) DEFAULT '' COMMENT '当前经度，范围为-180~180，负数表示西经',
-  `is_out` tinyint(1) DEFAULT 0 COMMENT '是否越界，0否，1是',
+  `latitude` decimal(10,6) DEFAULT '0' COMMENT '当前纬度，范围为-90~90，负数表示南纬',
+  `longitude` decimal(10,6) DEFAULT '0' COMMENT '当前经度，范围为-180~180，负数表示西经',
+  `out_distance` decimal(10,2) DEFAULT 0 COMMENT '越界距离，0不越界，大于0则为超出最近景点的距离',
   `scenic_id` int(11) DEFAULT '0' COMMENT '当前景点',
-  `start_latitude` decimal(10,6) DEFAULT '' COMMENT '开始纬度，范围为-90~90，负数表示南纬',
-  `start_longitude` decimal(10,6) DEFAULT '' COMMENT '开始经度，范围为-180~180，负数表示西经',
-  `distance` decimal(10,2) DEFAULT '' COMMENT '行驶距离',
+  `start_latitude` decimal(10,6) DEFAULT '0' COMMENT '开始纬度，范围为-90~90，负数表示南纬',
+  `start_longitude` decimal(10,6) DEFAULT '0' COMMENT '开始经度，范围为-180~180，负数表示西经',
+  `distance` decimal(10,2) DEFAULT '0' COMMENT '行驶距离',
+	`speed` decimal(10,2) DEFAULT '0' COMMENT '速度',
   `create_time` int(11) DEFAULT '0' COMMENT '创建时间',
   `update_time` int(11) DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`),
-  INDEX `index_user` (`admin_user_id`)
+  UNIQUE KEY `unique_key` (`drive_day`,`admin_user_id`)
+  INDEX `index_user` (`admin_user_id`,`drive_day`)
 ) ENGINE=innodb AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-# 船长游船行驶日志表
+# 船长游船行驶日志表,按月分表
 CREATE TABLE `user_boat_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增id',
   `drive_day` varchar(50) NOT NULL COMMENT '行驶日期',
-  `boat_name` varchar(50) NOT NULL COMMENT '游船名称',
+  `boat_name` varchar(50) default '' COMMENT '游船名称',
   `admin_user_id` int(11) NOT NULL COMMENT '用户id',
-  `latitude` decimal(10,6) DEFAULT '' COMMENT '当前纬度，范围为-90~90，负数表示南纬',
-  `longitude` decimal(10,6) DEFAULT '' COMMENT '当前经度，范围为-180~180，负数表示西经',
-  `is_out` tinyint(1) DEFAULT 0 COMMENT '是否越界，0否，1是',
+  `latitude` decimal(10,6) DEFAULT '0' COMMENT '当前纬度，范围为-90~90，负数表示南纬',
+  `longitude` decimal(10,6) DEFAULT '0' COMMENT '当前经度，范围为-180~180，负数表示西经',
+  `out_distance` decimal(10,2) DEFAULT 0 COMMENT '越界距离，0不越界，大于0则为超出最近景点的距离',
   `scenic_id` int(11) DEFAULT '0' COMMENT '当前景点',
-  `distance` decimal(10,2) DEFAULT '' COMMENT '行驶距离',
+  `distance` decimal(10,2) DEFAULT '0' COMMENT '行驶距离',
+	`speed` decimal(10,2) DEFAULT '0' COMMENT '速度',
   `create_time` int(11) DEFAULT '0' COMMENT '创建时间',
   PRIMARY KEY (`id`),
   INDEX `index_user` (`admin_user_id`)

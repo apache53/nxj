@@ -33,6 +33,9 @@ Route::group(['namespace'=>'Api','middleware'=>'checkYunSign'],function(){
         Route::any('scenic/list','ScenicController@lists');
 
         Route::any('file/upload','FileController@upload');
+
+        Route::any('driving/report','DrivingController@report');
+        Route::any('driving/list','DrivingController@lists');
     });
 });
 

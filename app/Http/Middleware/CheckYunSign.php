@@ -60,6 +60,7 @@ class CheckYunSign
         return [
             "api/sound/getlist",
             "api/sound/store",
+            "api/scenic/list",
             "api/user/login"
         ];
     }
@@ -69,8 +70,8 @@ class CheckYunSign
         return [
             "api/user/info",
             "api/user/logout",
-            "api/scenic/list",
-            "api/file/upload"
+            "api/file/upload",
+            "api/driving/report"
         ];
     }
 
@@ -80,7 +81,8 @@ class CheckYunSign
             1=>[
                 "api/scenic/add",
                 "api/user/list",
-                "api/user/add"
+                "api/user/add",
+                "api/driving/list"
             ],
             2=>[
 
