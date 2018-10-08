@@ -85,6 +85,13 @@ class ScenicController extends Controller
                     }
                 }
             }
+            $data2 = [];
+            $i = 0;
+            foreach($data as $k=>$v){
+                $data2[$i] = $v;
+                $i++;
+            }
+            $data = $data2;
         }
 
         Utils::outputJson(1,"ok",$data);
