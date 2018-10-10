@@ -52,7 +52,11 @@ class DrivingController extends Controller
 
         $res = UserBoat::reportDriving($driving_data,$user,$request_info);
 
-        Utils::outputJson($res["error"],$res["msg"],$res["res"]);
+        if($res["error"]==1){
+            Utils::outputJson($res["error"],$res["msg"],$res["res"]);
+        }
+        exit;
+
     }
 
     /************************************************

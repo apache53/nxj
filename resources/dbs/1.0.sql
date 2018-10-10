@@ -105,7 +105,7 @@ CREATE TABLE `user_boat` (
   `create_time` int(11) DEFAULT '0' COMMENT '创建时间',
   `update_time` int(11) DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `unique_key` (`drive_day`,`admin_user_id`)
+  UNIQUE KEY `unique_key` (`drive_day`,`admin_user_id`),
   INDEX `index_user` (`admin_user_id`,`drive_day`)
 ) ENGINE=innodb AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
