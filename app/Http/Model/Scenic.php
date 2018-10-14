@@ -107,6 +107,9 @@ class Scenic extends Model
 
         //检查下上一个景点是否已经是其他景点的上一个景点，把其他景点的上个景点变成当前这个景点
         self::updatePre($scenic,$scenic["scenic_id"],$user,$request_info);
+        //无景点处理
+        self::updatePreNone($scenic_res);
+
 
         $return_data = [
             "scenic_id" => $scenic["scenic_id"],
@@ -187,6 +190,19 @@ class Scenic extends Model
         return [
             "error"=>1,"msg"=>"保存成功","res"=>$return_data
         ];
+    }
+
+    //如果上一个景点是0的，加上了景点，就将他下一个景点
+    public static function updatePreNone($scenic,$current_pre){
+        if($scenic->pre_id==0 && $current_pre>0){
+            $up = [
+                "pre_id" => 0
+            ];
+            $where = [
+                "pre_id" => $scenic->id
+            ];
+            self::updateScenic($where,$up);
+        }
     }
 
     public static function updatePre($scenic,$current_scenic_id,$user,$request_info){
