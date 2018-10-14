@@ -190,7 +190,7 @@ class Scenic extends Model
     }
 
     public static function updatePre($scenic,$current_scenic_id,$user,$request_info){
-        if($scenic["pre_id"]>0){
+        if($scenic["pre_id"]>=0){
             $where = [
                 "pre_id" => $scenic["pre_id"],
             ];

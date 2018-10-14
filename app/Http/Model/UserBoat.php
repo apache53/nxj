@@ -30,7 +30,7 @@ class UserBoat extends Model
         $scenic = Scenic::getScenic($where);
         if(is_null($scenic) || empty($scenic)){
             return [
-                "error"=>21,"msg"=>"景点不存在","res"=>[]
+                "error"=>1,"msg"=>"景点不存在","res"=>[]
             ];
         }
 
