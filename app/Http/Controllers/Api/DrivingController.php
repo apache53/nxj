@@ -32,7 +32,7 @@ class DrivingController extends Controller
         }
 
         if($scenic_id<=0){
-            Utils::outputJson(12,'无景点',[]);
+            Utils::outputJson(1,'无景点',[]);
         }
 
         $user = $request->get('user');//中间件产生的参数
