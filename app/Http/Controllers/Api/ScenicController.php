@@ -1,5 +1,5 @@
 <?php
-/**
+/*/**
  * User: xumin
  * Date: 2018/9/9
  * Time: 9:35
@@ -78,7 +78,7 @@ class ScenicController extends Controller
         $res = Scenic::getList($where);
         $data = $res;
         if(!empty($res)){
-            foreach($res as $k=>$v){
+            /*foreach($res as $k=>$v){
                 if(isset($v["id"])){
                     if($v["pre_id"]>0){
                         $data[$v["pre_id"]]["next_id"] = $v["id"];
@@ -91,7 +91,8 @@ class ScenicController extends Controller
                 $data2[$i] = $v;
                 $i++;
             }
-            $data = $data2;
+            $data = $data2;*/
+            $data = $this->sortScenic($res);
         }
 
         Utils::outputJson(1,"ok",$data);
@@ -101,16 +102,39 @@ class ScenicController extends Controller
     public function sortScenic($res){
         if(!empty($res)){
             $order = 0;
+            $real_order = 0;
             $next_id = 0;
+            $data = [];
+            $left_res = $res;
             foreach($res as $k=>$v){
-                if(isset($v["id"])){
-                    if($order==0){
-                        if($v["id"]){
-
+                foreach($left_res as $kk=>$vv){
+                    if(isset($vv["id"])){
+                        if($vv["id"]){
+                            if($real_order==0){
+                                if($vv["pre_id"]==0){
+                                    $data[$order] = $vv;
+                                    $order++;
+                                    $next_id = $vv["id"];
+                                    unset($left_res[$kk]);
+                                    break;
+                                }
+                            }else{
+                                if($next_id==$vv["pre_id"]){
+                                    $data[$order] = $vv;
+                                    $order++;
+                                    $next_id = $vv["id"];
+                                    unset($left_res[$kk]);
+                                    break;
+                                }
+                            }
                         }
+
                     }
                 }
+                $real_order++;
             }
+            return $data;
         }
+        return [];
     }
 }
