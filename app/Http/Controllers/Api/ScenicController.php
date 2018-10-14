@@ -76,23 +76,32 @@ class ScenicController extends Controller
             "scenic_id" => $scenic_id
         ];
         $res = Scenic::getList($where);
-        $data = $res;
+        $data = [];
         if(!empty($res)){
-            /*foreach($res as $k=>$v){
+            $data_sort = $this->sortScenic($res);
+
+            foreach($data_sort as $k=>$v){
                 if(isset($v["id"])){
-                    if($v["pre_id"]>0){
+                    /*if($v["pre_id"]>0){
                         $data[$v["pre_id"]]["next_id"] = $v["id"];
+                    }*/
+                    $data[$k] = $v;
+                    if(isset($data_sort[$k+1])){
+                        $data[$k]["next_id"] = $data_sort[$k+1]["id"];
+                    }else{
+                        $data[$k]["next_id"] = 0;
                     }
+
                 }
             }
-            $data2 = [];
+            /*$data2 = [];
             $i = 0;
             foreach($data as $k=>$v){
                 $data2[$i] = $v;
                 $i++;
             }
             $data = $data2;*/
-            $data = $this->sortScenic($res);
+
         }
 
         Utils::outputJson(1,"ok",$data);
