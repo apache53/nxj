@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Http\Model\AdminUsers;
+use App\Library\AppLogger;
 use App\Library\Utils;
 use Closure;
 use Illuminate\Support\Facades\Response;
@@ -23,7 +24,8 @@ class CheckYunSign
         $no_role = $this->getNoRoleList();
         $role_list = $this->getRoleList();
         $route_path = $request->path();
-
+        $req_data = $request->input();
+        AppLogger::info('req:' . var_export($req_data,true));
         if(in_array($route_path,$no_login)){
             return $next($request);
         }
