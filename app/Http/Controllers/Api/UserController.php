@@ -27,6 +27,7 @@ class UserController extends Controller
         $password = Utils::safeInput($request->input('password', ''), array("filter_sql" => true, "filter_html" => true));
         $username = Utils::safeInput($request->input('username', ''), array("filter_sql" => true, "filter_html" => true));
         $vcode = Utils::safeInput($request->input('vcode', ''), array("filter_sql" => true, "filter_html" => true));
+        $login_type = Utils::safeInput($request->input('login_type', ''), array("filter_sql" => true, "filter_html" => true));
 
         if(empty($password) || empty($username)){
             Utils::outputJson(11,'信息请填写完整',[]);
@@ -43,6 +44,9 @@ class UserController extends Controller
         ];
         $user = AdminUsers::checkUser($username,$password,$request_info);
         if($user["error"] == 1){
+            if($login_type!=$user["res"]["role_id"]){
+                Utils::outputJson(15,'账号类型不正确',$user["res"]);
+            }
             Utils::outputJson(1,'登录成功',$user["res"]);
         }
 

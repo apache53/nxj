@@ -27,7 +27,7 @@ class Scenic extends Model
         //判断上一个景点信息
         if($scenic["pre_id"]==$scenic["scenic_id"]){
             return [
-                "error"=>20,"msg"=>"上一个景点不能是当前景点","res"=>[]
+                "error"=>20,"msg"=>"不能是当前景点","res"=>[]
             ];
         }
         if($scenic["pre_id"]){
