@@ -96,4 +96,21 @@ class ScenicController extends Controller
 
         Utils::outputJson(1,"ok",$data);
     }
+
+    //排序
+    public function sortScenic($res){
+        if(!empty($res)){
+            $order = 0;
+            $next_id = 0;
+            foreach($res as $k=>$v){
+                if(isset($v["id"])){
+                    if($order==0){
+                        if($v["id"]){
+
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

@@ -105,6 +105,9 @@ class Scenic extends Model
         ];
         UserLog::add($log);
 
+        //检查下上一个景点是否已经是其他景点的上一个景点，把其他景点的上个景点变成当前这个景点
+        self::updatePre($scenic,$scenic["scenic_id"],$user,$request_info);
+
         $return_data = [
             "scenic_id" => $scenic["scenic_id"],
             "scenic_img" => Utils::getImageUrl($scenic_img),
@@ -173,6 +176,9 @@ class Scenic extends Model
         ];
         UserLog::add($log);
 
+        //检查下上一个景点是否已经是其他景点的上一个景点，把其他景点的上个景点变成当前这个景点
+        self::updatePre($scenic,$scenic_id,$user,$request_info);
+
         $return_data = [
             "scenic_id" => $scenic_id,
             "scenic_img" => Utils::getImageUrl($scenic_img),
@@ -181,6 +187,41 @@ class Scenic extends Model
         return [
             "error"=>1,"msg"=>"保存成功","res"=>$return_data
         ];
+    }
+
+    public static function updatePre($scenic,$current_scenic_id,$user,$request_info){
+        if($scenic["pre_id"]>0){
+            $where = [
+                "pre_id" => $scenic["pre_id"],
+            ];
+            $other_scenic = self::getScenicArr($where);
+            if(is_null($other_scenic) || empty($other_scenic)){
+            }else{
+                $other_pre_ids = "";
+                foreach($other_scenic as $k=>$v){
+                    $other_pre_ids .= $v->id.",";
+                }
+                $up = [
+                    "pre_id" => $current_scenic_id
+                ];
+                $where = [
+                    "pre_id" => $scenic["pre_id"],
+                    "id" => -$current_scenic_id
+                ];
+                self::updateScenic($where,$up);
+                //记录操作日志
+                $log = [
+                    "admin_user_id" => $user["admin_user_id"],
+                    "user_name" => $user["user_name"],
+                    "log_type" => config('constants.log_update_scenic'),
+                    "log_ip" => $request_info["ip"],
+                    "before_value" => "id:".$other_pre_ids." # pre_id:".$scenic["pre_id"],
+                    "after_value" => "pre_id:".$current_scenic_id,
+                    "remark" => "更新景点上个景点",
+                ];
+                UserLog::add($log);
+            }
+        }
     }
 
     public static function getScenic($where){
@@ -197,6 +238,27 @@ class Scenic extends Model
         }
 
         $res = $db->first();
+
+        return $res;
+    }
+
+    public static function getScenicArr($where){
+        $db = DB::connection(self::$connection_name);
+        $table = self::$table_name;
+
+        $db = $db->table($table);
+
+        if(isset($where["scenic_id"])){
+            $db->where('id','=', $where["scenic_id"]);
+        }
+        if(isset($where["pre_id"])){
+            $db->where('pre_id','=', $where["pre_id"]);
+        }
+        if(isset($where["scenic_name"])){
+            $db->where('scenic_name','=', $where["scenic_name"]);
+        }
+
+        $res = $db->get();
 
         return $res;
     }
@@ -235,5 +297,20 @@ class Scenic extends Model
         }
 
         return $data;
+    }
+
+    public static function updateScenic($where,$update){
+        $db = DB::connection(self::$connection_name);
+        $table = self::$table_name;
+        $db = $db->table($table);
+        foreach($where as $k=>$v){
+            if($v<0){
+                $db->where($k,"!=", -$v);
+            }else{
+                $db->where($k, $v);
+            }
+
+        }
+        $db->update($update);
     }
 }
