@@ -108,7 +108,7 @@ class Scenic extends Model
         //检查下上一个景点是否已经是其他景点的上一个景点，把其他景点的上个景点变成当前这个景点
         self::updatePre($scenic,$scenic["scenic_id"],$user,$request_info);
         //无景点处理
-        self::updatePreNone($scenic_res);
+        self::updatePreNone($scenic_res,$scenic["pre_id"]);
 
 
         $return_data = [
