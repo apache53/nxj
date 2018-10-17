@@ -165,4 +165,37 @@ class UserController extends Controller
         Utils::outputJson($res["error"],$res["msg"],$res["res"]);
     }
 
+    /************************************************
+     * +   删除用户接口
+     * /***********************************************/
+    public function del(Request $request)
+    {
+        $user_id = Utils::safeInput($request->input('user_id', ''), array("filter_num" => true));
+
+        if(empty($user_id)){
+            Utils::outputJson(11,'参数为空',[]);
+        }
+
+        $where = [
+          "admin_user_id" => $user_id
+        ];
+        $user_res = AdminUsers::getUser($where);
+
+        if(is_null($user_res) || !isset($user_res->admin_user_id)){
+            return [
+                "error"=>12,"msg"=>"用户不存在","res"=>[]
+            ];
+        }
+
+        $user = $request->get('user');//中间件产生的参数
+
+        $request_info = [
+            "ip" => $request->getClientIp()
+        ];
+
+        //删除景点
+        $res = AdminUsers::delUser($user_res,$user,$request_info);
+        Utils::outputJson($res["error"],$res["msg"],$res["res"]);
+    }
+
 }

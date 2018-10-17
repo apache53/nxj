@@ -107,6 +107,38 @@ class ScenicController extends Controller
         Utils::outputJson(1,"ok",$data);
     }
 
+    /************************************************
+     * +   删除接口
+     * /***********************************************/
+    public function del(Request $request)
+    {
+        $scenic_id = Utils::safeInput($request->input('scenic_id', 0), array("filter_num" => true));
+        if(empty($scenic_id)){
+            Utils::outputJson(11,'参数为空',[]);
+        }
+
+        $where = [
+            "scenic_id" => $scenic_id
+        ];
+        $res = Scenic::getScenic($where);
+        if(is_null($res) || !isset($res->id)){
+            return [
+                "error"=>12,"msg"=>"景点不存在","res"=>[]
+            ];
+        }
+
+        $user = $request->get('user');//中间件产生的参数
+
+        $request_info = [
+            "ip" => $request->getClientIp()
+        ];
+
+        //删除景点
+        $res = Scenic::delScenic($res,$user,$request_info);
+        Utils::outputJson($res["error"],$res["msg"],$res["res"]);
+
+    }
+
     //排序
     public function sortScenic($res){
         if(!empty($res)){

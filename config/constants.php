@@ -15,4 +15,6 @@ return [
     'log_add_user' => 'add_user',
     'log_edit_user' => 'add_user',
     'log_update_scenic' => 'update_scenic',
+    'log_del_scenic' => 'del_scenic',
+    'log_del_user' => 'del_user',
 ];

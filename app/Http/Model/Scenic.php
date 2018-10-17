@@ -249,6 +249,9 @@ class Scenic extends Model
         if(isset($where["scenic_id"])){
             $db->where('id','=', $where["scenic_id"]);
         }
+        if(isset($where["pre_id"])){
+            $db->where('pre_id','=', $where["pre_id"]);
+        }
         if(isset($where["scenic_name"])){
             $db->where('scenic_name','=', $where["scenic_name"]);
         }
@@ -329,4 +332,48 @@ class Scenic extends Model
         }
         $db->update($update);
     }
+
+    //删除景点
+    public static function delScenic($scenic,$user,$request_info){
+        self::del($scenic->id);
+
+        //将他的下一个景点的上一个景点更新为他的上一个景点
+        $where = [
+            "pre_id" => $scenic->id
+        ];
+        $next = self::getScenic($where);
+        if(!is_null($next) && isset($next->id)){
+            $where = [
+                "id" => $next->id
+            ];
+            $update = [
+                "pre_id" => $scenic->pre_id
+            ];
+            self::updateScenic($where,$update);
+        }
+
+        //记录操作日志
+        $log = [
+            "admin_user_id" => $user["admin_user_id"],
+            "user_name" => $user["user_name"],
+            "log_type" => config('constants.log_del_scenic'),
+            "log_ip" => $request_info["ip"],
+            "before_value" => json_encode($user),
+            "after_value" => "",
+            "remark" => "删除景点成功",
+        ];
+        UserLog::add($log);
+
+        return [
+            "error"=>1,"msg"=>"删除成功","res"=>[]
+        ];
+    }
+
+    public static function del($scenic_id){
+        $db = DB::connection(self::$connection_name);
+        $table = self::$table_name;
+        $db = $db->table($table);
+        $db->where('id', '=', $scenic_id)->delete();
+    }
+
 }

@@ -344,4 +344,31 @@ class AdminUsers extends Model
         ];
 
     }
+
+    public static function delUser($del_user,$user,$request_info){
+        self::del($del_user->admin_user_id);
+
+        //记录操作日志
+        $log = [
+            "admin_user_id" => $user["admin_user_id"],
+            "user_name" => $user["user_name"],
+            "log_type" => config('constants.log_del_user'),
+            "log_ip" => $request_info["ip"],
+            "before_value" => json_encode($del_user),
+            "after_value" => "",
+            "remark" => "删除用户成功",
+        ];
+        UserLog::add($log);
+
+        return [
+            "error"=>1,"msg"=>"删除成功","res"=>[]
+        ];
+    }
+
+    public static function del($user_id){
+        $db = DB::connection(self::$connection_name);
+        $table = self::$table_name;
+        $db = $db->table($table);
+        $db->where('admin_user_id', '=', $user_id)->delete();
+    }
 }

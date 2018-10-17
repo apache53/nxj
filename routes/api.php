@@ -28,9 +28,11 @@ Route::group(['namespace'=>'Api','middleware'=>'checkYunSign'],function(){
         Route::any('user/logout','UserController@logout');
         Route::any('user/list','UserController@lists');
         Route::any('user/add','UserController@add');
+        Route::any('user/del','UserController@del');
 
         Route::any('scenic/add','ScenicController@add');
         Route::any('scenic/list','ScenicController@lists');
+        Route::any('scenic/del','ScenicController@del');
 
         Route::any('file/upload','FileController@upload');
 

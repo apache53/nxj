@@ -84,7 +84,9 @@ class CheckYunSign
                 "api/scenic/add",
                 "api/user/list",
                 "api/user/add",
-                "api/driving/list"
+                "api/user/del",
+                "api/driving/list",
+                "api/scenic/del"
             ],
             2=>[
 
