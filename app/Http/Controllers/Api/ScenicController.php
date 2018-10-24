@@ -31,6 +31,7 @@ class ScenicController extends Controller
         $pre_id = Utils::safeInput($request->input('pre_id', ''), array("filter_num" => true));
         $scenic_img = $request->input('scenic_img', '');
         $scenic_voice = $request->input('scenic_voice', '');
+        $remark = Utils::safeInput($request->input('remark', ''), array("filter_sql" => true, "filter_html" => true));
 
         //echo $scenic_name."#".$latitude."#".$longitude."#".$radius;
         if(empty($scenic_name) ||  empty($latitude) || empty($longitude) || empty($radius)){
@@ -51,7 +52,8 @@ class ScenicController extends Controller
             "radius" => $radius,
             "pre_id" => $pre_id,
             "scenic_img" => $scenic_img,
-            "scenic_voice" => $scenic_voice
+            "scenic_voice" => $scenic_voice,
+            "remark" => $remark
         ];
 
         if($scenic_id>0){

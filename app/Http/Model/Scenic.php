@@ -74,6 +74,7 @@ class Scenic extends Model
             "radius" => $scenic["radius"],
             "pre_id" => $scenic["pre_id"],
             "update_time" => $now,
+            "remark" => $scenic["remark"]
         ];
 
         $scenic_img = $scenic["scenic_img"];
@@ -161,6 +162,7 @@ class Scenic extends Model
             "voice_path" => $scenic_voice,
             "create_time" => $now,
             "update_time" => $now,
+            "remark" => $scenic["remark"],
         ];
 
         $db = DB::connection(self::$connection_name);
@@ -309,6 +311,7 @@ class Scenic extends Model
                             "radius" => $v->radius,
                             "pre_id" => $v->pre_id,
                             "next_id" => 0,
+                            "remark" => $v->remark
                         ];
                     }
                 }
