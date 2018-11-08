@@ -75,7 +75,7 @@ class FileController extends Controller
         }
 
         $where = [
-            "scenic_id" => $scenic_id
+            "id" => $scenic_id
         ];
         $update = [
             "voice_path" => $file_path

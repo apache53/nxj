@@ -49,5 +49,17 @@ Route::group(['namespace'=>'Backend','middleware'=>'checkBackendSign'],function(
         Route::get('index/login','IndexController@login');
         Route::post('index/dologin','IndexController@dologin');
         Route::get('index/vcode','IndexController@vcode');
+
     });
 });
+
+Route::group(['namespace'=>'Web'],function(){
+
+    Route::group(['prefix' =>'web'],function(){
+        Route::any('login','WebController@login');
+        Route::any('scenic','WebController@scenic');
+
+    });
+});
+
+

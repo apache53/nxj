@@ -17,4 +17,5 @@ DB_PASSWORD=
 HOST_SELF=https://sydemotest.ledu.com
 HOST_IMG=https://sydemotest.ledu.com
 HOST_VOICE=https://sydemotest.ledu.com
+HOST_RESOURCE=//sydemotest.ledu.com
 
