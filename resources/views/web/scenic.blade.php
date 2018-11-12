@@ -13,7 +13,7 @@
             </li>
         </ul>
     </div>
-    <form ref="form"><input ref="file" type="file" @change="onChangeFile" accept="audio/mpeg"></form>
+    <div style="width:0; height:0;overflow:hidden;"><form ref="form"><input ref="file" type="file" @change="onChangeFile" accept="audio/mpeg"></form></div>
 </div>
 <script>
     var login_token = localStorage.getItem('login_token');
