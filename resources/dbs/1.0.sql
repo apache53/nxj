@@ -83,7 +83,7 @@ CREATE TABLE `scenic` (
   `pre_id` int(11) DEFAULT '0' COMMENT '上一个景点id',
   `create_time` int(11) DEFAULT '0' COMMENT '创建时间',
   `update_time` int(11) DEFAULT '0' COMMENT '更新时间',
-  `remark` varchar(500) DEFAULT '' COMMENT '备注',
+  `remark` varchar(10000) DEFAULT '' COMMENT '备注',
   PRIMARY KEY (`id`),
   INDEX `index_pre_id` (`pre_id`)
 ) ENGINE=innodb AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
