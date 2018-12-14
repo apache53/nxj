@@ -125,3 +125,19 @@ CREATE TABLE `user_boat_log` (
   PRIMARY KEY (`id`),
   INDEX `index_user` (`admin_user_id`)
 ) ENGINE=innodb AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+# 船长语音表,按月分表
+CREATE TABLE `user_voice_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增id',
+  `from_user` int(11) NOT NULL COMMENT '用户id',
+  `to_user` int(11) NOT NULL COMMENT '用户id,全体为0，全体管理员为-1，全体船长-2',
+  `voice_path` varchar(255) DEFAULT '' COMMENT '语音地址',
+  `voice_time` int(11) DEFAULT '0' COMMENT '语音时长',
+  `create_time` int(11) DEFAULT '0' COMMENT '创建时间',
+  `client_ip` varchar(50) DEFAULT '' COMMENT '操作ip',
+  `is_played` tinyint(2) DEFAULT '0' COMMENT '1：已播放，0：未播放',
+  PRIMARY KEY (`id`),
+  INDEX `index_from_user` (`from_user`),
+  INDEX `index_to_user` (`to_user`),
+  INDEX `index_create_time` (`create_time`),
+) ENGINE=innodb AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

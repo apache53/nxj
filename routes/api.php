@@ -39,6 +39,11 @@ Route::group(['namespace'=>'Api','middleware'=>'checkYunSign'],function(){
 
         Route::any('driving/report','DrivingController@report');
         Route::any('driving/list','DrivingController@lists');
+
+        Route::any('voice/send','VoiceController@send');
+        Route::any('voice/senduserlist','VoiceController@senduserlist');
+        Route::any('voice/sendlist','VoiceController@sendlist');
+        Route::any('voice/receivelist','VoiceController@receivelist');
     });
 });
 

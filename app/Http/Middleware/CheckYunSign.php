@@ -73,7 +73,8 @@ class CheckYunSign
             "api/user/info",
             "api/user/logout",
             "api/file/upload",
-            "api/driving/report"
+            "api/driving/report",
+            "api/voice/receivelist",
         ];
     }
 
@@ -88,6 +89,9 @@ class CheckYunSign
                 "api/driving/list",
                 "api/scenic/del",
                 "api/file/scenic_upload",
+                "api/voice/send",
+                "api/voice/senduserlist",
+                "api/voice/sendlist",
             ],
             2=>[
 

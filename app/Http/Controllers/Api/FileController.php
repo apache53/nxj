@@ -26,7 +26,7 @@ class FileController extends Controller
 
         $user = $request->get('user');
         $type = Utils::safeInput($request->input('type', ''), array("filter_sql" => true, "filter_html" => true));
-        if(!in_array($type,['image','voice'])){
+        if(!in_array($type,['image','voice','user_voice'])){
             Utils::outputJson(12,'类型有误',[]);
         }
 
