@@ -27,6 +27,10 @@ class ScenicController extends Controller
         $scenic_name = Utils::safeInput($request->input('scenic_name', ''), array("filter_sql" => true, "filter_html" => true));
         $latitude = Utils::safeInput($request->input('latitude', ''), array("filter_num" => true));
         $longitude = Utils::safeInput($request->input('longitude', ''), array("filter_num" => true));
+        $latitude2 = Utils::safeInput($request->input('latitude2', ''), array("filter_num" => true));
+        $longitude2 = Utils::safeInput($request->input('longitude2', ''), array("filter_num" => true));
+        $latitude3 = Utils::safeInput($request->input('latitude3', ''), array("filter_num" => true));
+        $longitude3 = Utils::safeInput($request->input('longitude3', ''), array("filter_num" => true));
         $radius = Utils::safeInput($request->input('radius', ''), array("filter_num" => true));
         $pre_id = Utils::safeInput($request->input('pre_id', ''), array("filter_num" => true));
         $scenic_img = $request->input('scenic_img', '');
@@ -34,8 +38,15 @@ class ScenicController extends Controller
         $remark = Utils::safeInput($request->input('remark', ''), array("filter_sql" => true, "filter_html" => true));
 
         //echo $scenic_name."#".$latitude."#".$longitude."#".$radius;
-        if(empty($scenic_name) ||  empty($latitude) || empty($longitude) || empty($radius)){
+        if(empty($scenic_name)  || empty($radius)){
             Utils::outputJson(11,'信息请填写完整',[]);
+        }
+
+        $position = (!empty($latitude) && !empty($longitude));
+        $position2 = (!empty($latitude2) && !empty($longitude2));
+        $position3 = (!empty($latitude3) && !empty($longitude3));
+        if(!$position && !$position2 && !$position3){
+            Utils::outputJson(12,'至少填写一个位置',[]);
         }
 
         $user = $request->get('user');//中间件产生的参数
@@ -49,6 +60,10 @@ class ScenicController extends Controller
             "scenic_name" => $scenic_name,
             "latitude" => $latitude,
             "longitude" => $longitude,
+            "latitude2" => $latitude2,
+            "longitude2" => $longitude2,
+            "latitude3" => $latitude3,
+            "longitude3" => $longitude3,
             "radius" => $radius,
             "pre_id" => $pre_id,
             "scenic_img" => $scenic_img,
