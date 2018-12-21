@@ -33,6 +33,7 @@ class ScenicController extends Controller
         $longitude3 = Utils::safeInput($request->input('longitude3', ''), array("filter_num" => true));
         $radius = Utils::safeInput($request->input('radius', ''), array("filter_num" => true));
         $pre_id = Utils::safeInput($request->input('pre_id', ''), array("filter_num" => true));
+
         $scenic_img = $request->input('scenic_img', '');
         $scenic_voice = $request->input('scenic_voice', '');
         $remark = Utils::safeInput($request->input('remark', ''), array("filter_sql" => true, "filter_html" => true));
