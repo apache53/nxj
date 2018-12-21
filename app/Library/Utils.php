@@ -247,7 +247,7 @@ class Utils
     {
         $str = trim($str);
         if (isset($filter["filter_num"]) && $filter["filter_num"]) {
-            $str = $str + 0;
+            $str = intval($str) + 0;
         }
 
         if (isset($filter["filter_sql"]) && $filter["filter_sql"]) {
