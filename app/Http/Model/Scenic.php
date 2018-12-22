@@ -93,7 +93,7 @@ class Scenic extends Model
         }else{
             $scenic_voice = $scenic_res->voice_path;
         }
-
+        file_put_contents('/tmp/sceniclog.log',date("Y-m-d H:i:s")." update:".var_export($scenic_data,true)."\n",FILE_APPEND);
         $db = DB::connection(self::$connection_name);
         $table = self::$table_name;
         $db->table($table)->where('id', $scenic["scenic_id"])->update($scenic_data);

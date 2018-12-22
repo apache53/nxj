@@ -71,7 +71,7 @@ class ScenicController extends Controller
             "scenic_voice" => $scenic_voice,
             "remark" => $remark
         ];
-
+        file_put_contents('/tmp/sceniclog.log',date("Y-m-d H:i:s")." param:".var_export($scenic_data,true)."\n",FILE_APPEND);
         if($scenic_id>0){
             //编辑逻辑
             $res = Scenic::editScenic($scenic_data,$user,$request_info);
