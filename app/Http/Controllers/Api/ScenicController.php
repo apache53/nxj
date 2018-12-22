@@ -25,12 +25,12 @@ class ScenicController extends Controller
     {
         $scenic_id = Utils::safeInput($request->input('scenic_id', ''), array("filter_num" => true));
         $scenic_name = Utils::safeInput($request->input('scenic_name', ''), array("filter_sql" => true, "filter_html" => true));
-        $latitude = Utils::safeInput($request->input('latitude', ''), array("filter_num" => true));
-        $longitude = Utils::safeInput($request->input('longitude', ''), array("filter_num" => true));
-        $latitude2 = Utils::safeInput($request->input('latitude2', ''), array("filter_num" => true));
-        $longitude2 = Utils::safeInput($request->input('longitude2', ''), array("filter_num" => true));
-        $latitude3 = Utils::safeInput($request->input('latitude3', ''), array("filter_num" => true));
-        $longitude3 = Utils::safeInput($request->input('longitude3', ''), array("filter_num" => true));
+        $latitude = $request->input('latitude', '');
+        $longitude = $request->input('longitude', '');
+        $latitude2 = $request->input('latitude2', '');
+        $longitude2 = $request->input('longitude2', '');
+        $latitude3 = $request->input('latitude3', '');
+        $longitude3 = $request->input('longitude3', '');
         $radius = Utils::safeInput($request->input('radius', ''), array("filter_num" => true));
         $pre_id = Utils::safeInput($request->input('pre_id', ''), array("filter_num" => true));
 
