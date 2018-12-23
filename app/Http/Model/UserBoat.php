@@ -123,11 +123,13 @@ class UserBoat extends Model
     public static function getList($where){
         $db = DB::connection(self::$connection_name);
         $table = self::$table_name;
-
+        $join_table = 'admin_users';
         $db = $db->table($table);
+        $db->select(DB::raw($table.'.*,'.$join_table.'.user_name,'.$join_table.'.real_name'));
+        $db->leftJoin($join_table, $join_table.'.admin_user_id', '=', $table.'.admin_user_id');
 
         if(isset($where["user_id"]) && !empty($where["user_id"])){
-            $db->where('admin_user_id','=', $where["user_id"]);
+            $db->where($table.'.admin_user_id','=', $where["user_id"]);
         }
 
         if(isset($where["drive_day"]) && !empty($where["drive_day"])){

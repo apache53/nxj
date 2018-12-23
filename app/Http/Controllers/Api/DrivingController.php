@@ -97,6 +97,8 @@ class DrivingController extends Controller
                         "scenic_id" => $v->scenic_id,
                         "out_distance" => $v->out_distance,
                         "distance" => $v->distance,
+                        "user_name" => $v->user_name,
+                        "real_name" => $v->real_name,
                     ];
                 }
 
