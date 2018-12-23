@@ -145,3 +145,13 @@ CREATE TABLE `user_voice_log` (
   INDEX `index_to_user` (`to_user`),
   INDEX `index_create_time` (`create_time`),
 ) ENGINE=innodb AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+alter table scenic modify column `latitude` varchar(20) DEFAULT '' COMMENT '纬度，范围为-90~90，负数表示南纬';
+alter table scenic modify column`longitude` varchar(20) DEFAULT '' COMMENT '经度，范围为-180~180，负数表示西经';
+alter table scenic modify column `latitude2` varchar(20) DEFAULT '' COMMENT '纬度，范围为-90~90，负数表示南纬';
+alter table scenic modify column  `longitude2` varchar(20) DEFAULT '' COMMENT '经度，范围为-180~180，负数表示西经';
+alter table scenic modify column  `latitude3` varchar(20) DEFAULT '' COMMENT '纬度，范围为-90~90，负数表示南纬';
+alter table scenic modify column  `longitude3` varchar(20) DEFAULT '' COMMENT '经度，范围为-180~180，负数表示西经';
+alter table user_boat_log_201812 modify column `latitude` varchar(20) DEFAULT '' COMMENT '当前纬度';
+ alter table user_boat_log_201812 modify column  `longitude` varchar(20) DEFAULT '' COMMENT '当前经度';
