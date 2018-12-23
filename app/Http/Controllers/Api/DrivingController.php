@@ -21,8 +21,8 @@ class DrivingController extends Controller
     public function report(Request $request)
     {
         $out_distance = Utils::safeInput($request->input('out_distance', ''), array("filter_num" => true));
-        $latitude = Utils::safeInput($request->input('latitude', ''), array("filter_num" => true));
-        $longitude = Utils::safeInput($request->input('longitude', ''), array("filter_num" => true));
+        $latitude = $request->input('latitude', '');
+        $longitude = $request->input('longitude', '');
         $scenic_id = Utils::safeInput($request->input('scenic_id', ''), array("filter_num" => true));
         $speed = Utils::safeInput($request->input('speed', ''), array("filter_num" => true));
         $distance = Utils::safeInput($request->input('distance', ''), array("filter_num" => true));

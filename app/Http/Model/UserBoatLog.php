@@ -61,8 +61,8 @@ class UserBoatLog extends Model
                 $table->integer('admin_user_id')->default(0)->comment('用户id');
                 $table->string('drive_day')->default('')->comment('行驶日期');
                 $table->string('boat_name')->default('')->comment('游船名称');
-                $table->decimal('latitude',10,6)->default(0)->comment('当前纬度');
-                $table->decimal('longitude',10,6)->default(0)->comment('当前经度');
+                $table->string('latitude',20)->default('')->comment('当前纬度');
+                $table->string('longitude',20)->default('')->comment('当前经度');
                 $table->decimal('out_distance',10,2)->default(0)->comment('越界距离');
                 $table->integer('scenic_id')->default(0)->comment('当前景点');
                 $table->decimal('distance',10,2)->default(0)->comment('行驶距离');
