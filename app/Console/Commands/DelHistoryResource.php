@@ -40,7 +40,7 @@ class DelHistoryResource extends Command
     public function handle()
     {
         echo date("Y-m-d H:i:s")." start\n";
-        $end = strtotime(date('Y-m-d'))-10;
+        $end = strtotime(date('Y-m-d'))-10*86400;
         $start = $end-86400+1;
         $param1 = $this->argument('param1');
         $param2 = $this->argument('param2');
@@ -51,6 +51,15 @@ class DelHistoryResource extends Command
             $end = strtotime($param2);
         }
 
+        $this->delUserVoice($end);
+
+        echo date("Y-m-d H:i:s")." end\n";
+        exit;
+
+    }
+
+    function delUserVoice($time){
+        echo date("Y-m-d H:i:s")." delUserVoice ".date("Y-m-d H:i:s",$time)."\n";
         $dir = public_path()."/file/user_voice";
         $files = array();
         //opendir() 打开目录句柄
@@ -65,7 +74,13 @@ class DelHistoryResource extends Command
                         continue;
                     } else {
                         //获取文件修改日期
-                        $filetime = date('Y-m-d H:i:s', filemtime($dir . "/" . $file));
+                        $file_time = filemtime($dir . "/" . $file);
+                        $filetime = date('Y-m-d H:i:s', $file_time);
+                        if($time>$file_time){
+
+                            $res = unlink($dir."/".$file);
+                            echo date("Y-m-d H:i:s")." del ".$file." ".$filetime." ".var_export($res,true)."\n";
+                        }
                         //文件修改时间作为健值
                         $files[$filetime] = $file;
                     }
@@ -73,12 +88,7 @@ class DelHistoryResource extends Command
             }
             @closedir($handle);
         }
-
+        echo date("Y-m-d H:i:s")." left files:";
         print_r($files);
-
-
-        echo date("Y-m-d H:i:s")." end\n";
-        exit;
-
     }
 }
