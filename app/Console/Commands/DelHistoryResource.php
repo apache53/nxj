@@ -40,7 +40,7 @@ class DelHistoryResource extends Command
     public function handle()
     {
         echo date("Y-m-d H:i:s")." start\n";
-        $end = strtotime(date('Y-m-d'))-10*86400;
+        $end = strtotime(date('Y-m-d'))-14*86400;
         $start = $end-86400+1;
         $param1 = $this->argument('param1');
         $param2 = $this->argument('param2');
@@ -80,9 +80,11 @@ class DelHistoryResource extends Command
 
                             $res = unlink($dir."/".$file);
                             echo date("Y-m-d H:i:s")." del ".$file." ".$filetime." ".var_export($res,true)."\n";
+                        }else{
+                            //文件修改时间作为健值
+                            $files[$filetime] = $file;
                         }
-                        //文件修改时间作为健值
-                        $files[$filetime] = $file;
+
                     }
                 }
             }
